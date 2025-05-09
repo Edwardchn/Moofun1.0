@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Moofun 1.0 — 奶牛农场挂机养成</title>
+	<title lang="zh">Moofun 1.0 — 奶牛农场挂机养成</title>
+	<title lang="en">Moofun 1.0 — Idle Cow Farm Game</title>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
 		tailwind.config = {
@@ -39,13 +40,12 @@
 		}
 		.stars {
 			background-image: radial-gradient(2px 2px at 20px 30px, white, rgba(0,0,0,0)),
-												radial-gradient(2px 2px at 40px 70px, white, rgba(0,0,0,0)),
-												radial-gradient(2px 2px at 50px 160px, white, rgba(0,0,0,0)),
-												radial-gradient(2px 2px at 90px 40px, white, rgba(0,0,0,0)),
-												radial-gradient(2px 2px at 130px 80px, white, rgba(0,0,0,0)),
-												radial-gradient(2px 2px at 160px 120px, white, rgba(0,0,0,0));
+			radial-gradient(2px 2px at 40px 70px, white, rgba(0,0,0,0)),
+			radial-gradient(2px 2px at 50px 160px, white, rgba(0,0,0,0)),
+			radial-gradient(2px 2px at 90px 40px, white, rgba(0,0,0,0)),
+			radial-gradient(2px 2px at 130px 80px, white, rgba(0,0,0,0)),
+			radial-gradient(2px 2px at 160px 120px, white, rgba(0,0,0,0));
 			background-repeat: repeat;
-			<!-- background-size: 200px 200px; -->
 			background-size: 100%;
 		}
 		.logo {
@@ -56,276 +56,445 @@
 			height: 80px;
 			width: auto;
 		}
+		[lang="zh"] {
+			display: inline;
+		}
+		[lang="en"] {
+			display: inline;
+		}
 	</style>
+
+	<!-- ✅ 多语言切换脚本（仅逻辑，不输出任何内容） -->
+	<script>
+		function switchLang(lang) {
+			document.querySelectorAll('[lang]').forEach(el => {
+				el.style.display = el.getAttribute('lang') === lang ? '' : 'none';
+			});
+			// 设置页面标题
+			if (lang === 'zh') {
+				document.title = 'Moofun 1.0 — 奶牛农场挂机养成';
+			} else if (lang === 'en') {
+				document.title = 'Moofun 1.0 — Idle Cow Farm Game';
+			}
+		}
+		// 页面加载后默认语言为中文
+		window.addEventListener('DOMContentLoaded', () => {
+			switchLang('zh');
+		});
+	</script>
 </head>
 <body class="font-[system-ui] text-gray-800 bg-gray-50">
 	<!-- 顶部导航 -->
-	<header class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-		<div class="container mx-auto px-4 py-3 flex justify-between items-center">
-			<div class="flex items-center">
-				<img src="assets/logo.png" alt="Moofun Logo" class="logo" loading="lazy">
-			</div>
-			
-			<!-- 移动端菜单按钮 -->
-			<button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-				</svg>
-			</button>
-			
-			<!-- 桌面端导航 -->
-			<nav class="hidden md:flex space-x-6">
-				<a href="#home" class="font-medium hover:text-orange-500 transition-colors">首页</a>
-				<a href="#gameplay" class="font-medium hover:text-orange-500 transition-colors">玩法介绍</a>
-				<a href="#features" class="font-medium hover:text-orange-500 transition-colors">特色亮点</a>
-				<a href="#download" class="font-medium hover:text-orange-500 transition-colors">下载入口</a>
-				<a href="#faq" class="font-medium hover:text-orange-500 transition-colors">FAQ</a>
-			</nav>
+<header class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+	<div class="container mx-auto px-4 py-3 flex justify-between items-center">
+		<div class="flex items-center">
+			<img src="assets/logo.png" alt="Moofun Logo" class="logo" loading="lazy">
 		</div>
-		
-		<!-- 移动端导航菜单 -->
-		<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-			<div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-				<a href="#home" class="font-medium py-2 hover:text-orange-500 transition-colors">首页</a>
-				<a href="#gameplay" class="font-medium py-2 hover:text-orange-500 transition-colors">玩法介绍</a>
-				<a href="#features" class="font-medium py-2 hover:text-orange-500 transition-colors">特色亮点</a>
-				<a href="#download" class="font-medium py-2 hover:text-orange-500 transition-colors">下载入口</a>
-				<a href="#faq" class="font-medium py-2 hover:text-orange-500 transition-colors">FAQ</a>
-			</div>
-		</div>
-	</header>
 
+		<!-- 移动端菜单按钮 -->
+		<button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+			</svg>
+		</button>
+
+		<!-- 桌面端导航 -->
+		<nav class="hidden md:flex space-x-6">
+			<a href="#home" class="font-medium hover:text-orange-500 transition-colors">
+				<span lang="zh">首页</span>
+				<span lang="en">Home</span>
+			</a>
+			<a href="#gameplay" class="font-medium hover:text-orange-500 transition-colors">
+				<span lang="zh">玩法介绍</span>
+				<span lang="en">Gameplay</span>
+			</a>
+			<a href="#features" class="font-medium hover:text-orange-500 transition-colors">
+				<span lang="zh">特色亮点</span>
+				<span lang="en">Features</span>
+			</a>
+			<a href="#download" class="font-medium hover:text-orange-500 transition-colors">
+				<span lang="zh">下载入口</span>
+				<span lang="en">Download</span>
+			</a>
+			<a href="#faq" class="font-medium hover:text-orange-500 transition-colors">
+				<span lang="zh">FAQ</span>
+				<span lang="en">FAQ</span>
+			</a>
+			<a href="#" onclick="switchLang('en')" class="font-medium hover:text-orange-500 transition-colors" lang="zh">
+				<span lang="zh">英文</span>
+			</a>
+			<a href="#" onclick="switchLang('zh')" class="font-medium hover:text-orange-500 transition-colors" lang="en">
+				<span lang="en">Chinese</span>
+			</a>
+		</nav>
+	</div>
+
+	<!-- 移动端导航菜单 -->
+	<div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+		<div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+			<a href="#home" class="font-medium py-2 hover:text-orange-500 transition-colors">
+				<span lang="zh">首页</span>
+				<span lang="en">Home</span>
+			</a>
+			<a href="#gameplay" class="font-medium py-2 hover:text-orange-500 transition-colors">
+				<span lang="zh">玩法介绍</span>
+				<span lang="en">Gameplay</span>
+			</a>
+			<a href="#features" class="font-medium py-2 hover:text-orange-500 transition-colors">
+				<span lang="zh">特色亮点</span>
+				<span lang="en">Features</span>
+			</a>
+			<a href="#download" class="font-medium py-2 hover:text-orange-500 transition-colors">
+				<span lang="zh">下载入口</span>
+				<span lang="en">Download</span>
+			</a>
+			<a href="#faq" class="font-medium py-2 hover:text-orange-500 transition-colors">
+				<span lang="zh">FAQ</span>
+				<span lang="en">FAQ</span>
+			</a>
+		</div>
+	</div>
+</header>
 	<!-- Hero Section -->
-	<section id="home" class="pt-24 pb-16 bg-gradient-to-br from-orange-500 to-orange-400 stars text-white">
-		<div class="container mx-auto px-4 text-center">
-			<h1 class="text-3xl md:text-5xl font-bold mb-4">Moofun —— 奶牛农场挂机养成</h1>
-			<p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-		采用放置+点触机制，模拟自动产奶体验，让你轻松玩转收益之路
-			</p>
-			
-			<div class="relative mb-10">
-				<img src="assets/moo.png" alt="奶牛插图" class="h-64 w-64 mx-auto float" loading="lazy">
-			</div>
-			
-			<div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-				<a href="#download" class="bg-white text-orange-500 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:scale-105">
-					立即下载
-				</a>
-				<a href="#" class="bg-transparent border-2 border-white hover:bg-white/20 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
-					在线试玩
-				</a>
-			</div>
-			
-			<div class="flex justify-center space-x-4">
-				<div class="flex items-center">
-					<div class="bg-white/20 p-2 rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-						</svg>
-					</div>
-					<span class="ml-2">挂机收益</span>
-				</div>
-				<div class="flex items-center">
-					<div class="bg-white/20 p-2 rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-						</svg>
-					</div>
-					<span class="ml-2">GEM 奖励</span>
-				</div>
-				<div class="flex items-center">
-					<div class="bg-white/20 p-2 rounded-full">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-						</svg>
-					</div>
-					<span class="ml-2">社交推广</span>
-				</div>
-			</div>
-		</div>
-	</section>
+<section id="home" class="pt-24 pb-16 bg-gradient-to-br from-orange-500 to-orange-400 stars text-white">
+	<div class="container mx-auto px-4 text-center">
+		<!-- 标题 -->
+		<h1 class="text-3xl md:text-5xl font-bold mb-4">
+			<span lang="zh">Moofun —— 奶牛农场挂机养成</span>
+			<span lang="en">Moofun — Cow Farm Idle Game</span>
+		</h1>
+		<!-- 副标题描述 -->
+		<p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+			<span lang="zh">采用放置+点触机制，模拟自动产奶体验，让你轻松玩转收益之路</span>
+			<span lang="en">Tap-and-idle milk simulation game. Automate your cow farm and enjoy effortless profits!</span>
+		</p>
 
-	<!-- 核心机制介绍 -->
-	<section id="gameplay" class="py-16 bg-white">
-		<div class="container mx-auto px-4">
-			<h2 class="text-3xl font-bold text-center mb-12">核心机制介绍</h2>
-			
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-				<!-- 机制 1 -->
-				<div class="bg-gradient-to-br from-orange-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">Idle to Earn</h3>
-					<p class="text-gray-700">打造农场，自动化收益成长。即使离线，您的奶牛也会持续产奶，为您带来稳定收益。</p>
+		<!-- 插图 -->
+		<div class="relative mb-10">
+			<img src="assets/moo.png" alt="奶牛插图" class="h-64 w-64 mx-auto float" loading="lazy">
+		</div>
+		<!-- 下载与试玩按钮 -->
+		<div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+			<a href="#download" class="bg-white text-orange-500 hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:scale-105">
+				<span lang="zh">立即下载</span>
+				<span lang="en">Download Now</span>
+			</a>
+			<a href="#" class="bg-transparent border-2 border-white hover:bg-white/20 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+				<span lang="zh">在线试玩</span>
+				<span lang="en">Try Online</span>
+			</a>
+		</div>
+		<!-- 三大卖点图标说明 -->
+		<div class="flex justify-center space-x-4">
+			<div class="flex items-center">
+				<div class="bg-white/20 p-2 rounded-full">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
 				</div>
-				
-				<!-- 机制 2 -->
-				<div class="bg-gradient-to-br from-teal-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-teal-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">宝箱奖励</h3>
-					<p class="text-gray-700">完成任务，开启额外宝箱。每个宝箱都有机会获得稀有物品、GEM 和其他游戏资源。</p>
+				<span class="ml-2">
+					<span lang="zh">挂机收益</span>
+					<span lang="en">Idle Profits</span>
+				</span>
+			</div>
+			<div class="flex items-center">
+				<div class="bg-white/20 p-2 rounded-full">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
 				</div>
-				
-				<!-- 机制 3 -->
-				<div class="bg-gradient-to-br from-purple-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">推广计划</h3>
-					<p class="text-gray-700">邀请好友，赢取开箱机会。通过社交分享获得额外奖励，好友越多，收益越丰厚。</p>
+				<span class="ml-2">
+					<span lang="zh">GEM 奖励</span>
+					<span lang="en">GEM Rewards</span>
+				</span>
+			</div>
+			<div class="flex items-center">
+				<div class="bg-white/20 p-2 rounded-full">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+					</svg>
 				</div>
-				
-				<!-- 机制 4 -->
-				<div class="bg-gradient-to-br from-orange-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">合成机制</h3>
-					<p class="text-gray-700">碎片合成门票与物资。收集各种碎片，合成稀有物品，提升您的农场效率。</p>
-				</div>
-				
-				<!-- 机制 5 -->
-				<div class="bg-gradient-to-br from-teal-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-teal-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">Jackpot 宝箱</h3>
-					<p class="text-gray-700">大奖掉落，赢取丰厚奖励！有机会获得游戏中最稀有的物品和大量 GEM 奖励。</p>
-				</div>
-				
-				<!-- 机制说明 -->
-				<div class="bg-gradient-to-br from-purple-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-					<div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold mb-2">更多玩法</h3>
-					<p class="text-gray-700">探索更多隐藏玩法和奖励机制，持续更新的游戏内容让您永远有新鲜体验。</p>
-				</div>
+				<span class="ml-2">
+					<span lang="zh">社交推广</span>
+					<span lang="en">Social Promotion</span>
+				</span>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
+	<!-- 核心机制介绍 -->
+<section id="gameplay" class="py-16 bg-white">
+	<div class="container mx-auto px-4">
+		<h2 class="text-3xl font-bold text-center mb-12">
+			<span lang="zh">核心机制介绍</span>
+			<span lang="en">Core Gameplay Features</span>
+		</h2>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			
+			<!-- 机制 1 -->
+			<div class="bg-gradient-to-br from-orange-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">挂机收益</span>
+					<span lang="en">Idle to Earn</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">打造农场，自动化收益成长。即使离线，您的奶牛也会持续产奶，为您带来稳定收益。</span>
+					<span lang="en">Build your farm and automate milk production. Even offline, your cows continue to earn for you.</span>
+				</p>
+			</div>
+
+			<!-- 机制 2 -->
+			<div class="bg-gradient-to-br from-teal-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-teal-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">宝箱奖励</span>
+					<span lang="en">Treasure Chests</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">完成任务，开启额外宝箱。每个宝箱都有机会获得稀有物品、GEM 和其他游戏资源。</span>
+					<span lang="en">Complete tasks to unlock chests. Each contains chances for rare items, GEMs, and more!</span>
+				</p>
+			</div>
+
+			<!-- 机制 3 -->
+			<div class="bg-gradient-to-br from-purple-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">推广计划</span>
+					<span lang="en">Referral Program</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">邀请好友，赢取开箱机会。通过社交分享获得额外奖励，好友越多，收益越丰厚。</span>
+					<span lang="en">Invite friends and earn chest rewards. The more you share, the more bonuses you get!</span>
+				</p>
+			</div>
+
+			<!-- 机制 4 -->
+			<div class="bg-gradient-to-br from-orange-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-orange-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">合成机制</span>
+					<span lang="en">Synthesis System</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">碎片合成门票与物资。收集各种碎片，合成稀有物品，提升您的农场效率。</span>
+					<span lang="en">Combine fragments into tickets and gear. Collect to synthesize rare items and boost productivity.</span>
+				</p>
+			</div>
+
+			<!-- 机制 5 -->
+			<div class="bg-gradient-to-br from-teal-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-teal-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">Jackpot 宝箱</span>
+					<span lang="en">Jackpot Chest</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">大奖掉落，赢取丰厚奖励！有机会获得游戏中最稀有的物品和大量 GEM 奖励。</span>
+					<span lang="en">Huge prizes await! Get a chance to earn the rarest items and tons of GEMs.</span>
+				</p>
+			</div>
+
+			<!-- 机制 6 -->
+			<div class="bg-gradient-to-br from-purple-100 to-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+				<div class="bg-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center mb-4">
+					<!-- 图标略 -->
+				</div>
+				<h3 class="text-xl font-bold mb-2">
+					<span lang="zh">更多玩法</span>
+					<span lang="en">More to Explore</span>
+				</h3>
+				<p class="text-gray-700">
+					<span lang="zh">探索更多隐藏玩法和奖励机制，持续更新的游戏内容让您永远有新鲜体验。</span>
+					<span lang="en">Discover hidden mechanics and evolving gameplay. New content keeps the game fresh and exciting.</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 	<!-- 挂机玩法机制 -->
-	<section class="py-16 bg-gray-100">
-		<div class="container mx-auto px-4">
-			<div class="flex flex-col md:flex-row items-center gap-8">
-				<div class="md:w-1/2">
-					<h2 class="text-3xl font-bold mb-6">挂机玩法机制</h2>
-					<div class="space-y-4">
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-							</div>
-							<p class="text-gray-700">Moofun 1.0 推出「挂机养牛」，自动产奶获取 GEM / KAIA 奖励</p>
+<section class="py-16 bg-gray-100">
+	<div class="container mx-auto px-4">
+		<div class="flex flex-col md:flex-row items-center gap-8">
+
+			<!-- 左侧文字介绍 -->
+			<div class="md:w-1/2">
+				<h2 class="text-3xl font-bold mb-6">
+					<span lang="zh">挂机玩法机制</span>
+					<span lang="en">Idle Gameplay Mechanics</span>
+				</h2>
+
+				<div class="space-y-4">
+					<!-- 点 1 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
+							<!-- ✔ Icon -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
 						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-							</div>
-							<p class="text-gray-700">使用 GEM 升级牧场区，提升产能，解锁更多奶牛品种</p>
-						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-							</div>
-							<p class="text-gray-700">任务/社区互动可获得额外奖励，加速您的农场发展</p>
-						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-								</svg>
-							</div>
-							<p class="text-gray-700">为 Moofun 2.0 提供积累基础，早期玩家将获得特殊奖励</p>
-						</div>
+						<p class="text-gray-700">
+							<span lang="zh">Moofun 1.0 推出「挂机养牛」，自动产奶获取 GEM / KAIA 奖励</span>
+							<span lang="en">Moofun 1.0 introduces idle cow farming, earning GEM / KAIA rewards through auto-milking.</span>
+						</p>
 					</div>
-					<button class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors">
-						了解更多挂机玩法
-					</button>
+
+					<!-- 点 2 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">使用 GEM 升级牧场区，提升产能，解锁更多奶牛品种</span>
+							<span lang="en">Upgrade your ranch using GEMs to boost output and unlock new cow breeds.</span>
+						</p>
+					</div>
+
+					<!-- 点 3 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">任务/社区互动可获得额外奖励，加速您的农场发展</span>
+							<span lang="en">Complete tasks and engage with the community to earn extra rewards and boost growth.</span>
+						</p>
+					</div>
+
+					<!-- 点 4 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">为 Moofun 2.0 提供积累基础，早期玩家将获得特殊奖励</span>
+							<span lang="en">Lay the foundation for Moofun 2.0—early adopters will be rewarded with exclusive bonuses.</span>
+						</p>
+					</div>
 				</div>
-				<div class="md:w-1/2">
-					<img src="assets/factory.png" alt="挂机玩法展示" class="rounded-xl shadow-lg w-full" loading="lazy">
-				</div>
+
+				<!-- 按钮 -->
+				<button class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors">
+					<span lang="zh">了解更多挂机玩法</span>
+					<span lang="en">Learn More About Idle Play</span>
+				</button>
+			</div>
+
+			<!-- 右侧图像展示 -->
+			<div class="md:w-1/2">
+				<img src="assets/factory.png" alt="挂机玩法展示" class="rounded-xl shadow-lg w-full" loading="lazy">
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
 	<!-- 开箱玩法机制 -->
-	<section class="py-16 bg-white">
-		<div class="container mx-auto px-4">
-			<div class="flex flex-col md:flex-row-reverse items-center gap-8">
-				<div class="md:w-1/2">
-					<h2 class="text-3xl font-bold mb-6">开箱玩法机制</h2>
-					<div class="space-y-4">
-						<div class="flex items-start">
-							<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-								</svg>
-							</div>
-							<p class="text-gray-700">各类宝箱可产出门票碎片、Jackpot大奖，提升您的游戏体验</p>
+<section class="py-16 bg-white">
+	<div class="container mx-auto px-4">
+		<div class="flex flex-col md:flex-row-reverse items-center gap-8">
+
+			<!-- 左侧说明 -->
+			<div class="md:w-1/2">
+				<h2 class="text-3xl font-bold mb-6">
+					<span lang="zh">开箱玩法机制</span>
+					<span lang="en">Treasure Chest Mechanics</span>
+				</h2>
+
+				<div class="space-y-4">
+					<!-- 点 1 -->
+					<div class="flex items-start">
+						<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
+							<!-- Icon -->
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+							</svg>
 						</div>
-						<div class="flex items-start">
-							<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</div>
-							<p class="text-gray-700">获取方式包含倒计时宝箱、Tap to Earn、推广者加速等多种途径</p>
-						</div>
-						<div class="flex items-start">
-							<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-								</svg>
-							</div>
-							<p class="text-gray-700">强调"持续积累资源"概念，长期玩家将获得更多回报</p>
-						</div>
-						<div class="flex items-start">
-							<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
-								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</div>
-							<p class="text-gray-700">稀有宝箱有机会获得限量版奶牛和特殊装饰物品</p>
-						</div>
+						<p class="text-gray-700">
+							<span lang="zh">各类宝箱可产出门票碎片、Jackpot大奖，提升您的游戏体验</span>
+							<span lang="en">Various chests drop ticket shards and Jackpot prizes, enhancing your gameplay experience.</span>
+						</p>
 					</div>
-					<button class="mt-6 bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors">
-						查看宝箱奖励列表
-					</button>
+
+					<!-- 点 2 -->
+					<div class="flex items-start">
+						<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">获取方式包含倒计时宝箱、Tap to Earn、推广者加速等多种途径</span>
+							<span lang="en">Chests can be earned through countdown timers, Tap to Earn, referrals and more.</span>
+						</p>
+					</div>
+
+					<!-- 点 3 -->
+					<div class="flex items-start">
+						<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">强调"持续积累资源"概念，长期玩家将获得更多回报</span>
+							<span lang="en">Focuses on "long-term accumulation"—the longer you play, the more rewards you gain.</span>
+						</p>
+					</div>
+
+					<!-- 点 4 -->
+					<div class="flex items-start">
+						<div class="bg-teal-500 text-white p-2 rounded-full mr-4 mt-1">
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<p class="text-gray-700">
+							<span lang="zh">稀有宝箱有机会获得限量版奶牛和特殊装饰物品</span>
+							<span lang="en">Rare chests offer chances for limited edition cows and exclusive decorative items.</span>
+						</p>
+					</div>
 				</div>
-				<div class="md:w-1/2">
-					<img src="assets/chest.png" alt="开箱玩法展示" class="rounded-xl shadow-lg w-full" loading="lazy">
-				</div>
+
+				<!-- 按钮 -->
+				<button class="mt-6 bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow transition-colors">
+					<span lang="zh">查看宝箱奖励列表</span>
+					<span lang="en">View Chest Rewards</span>
+				</button>
+			</div>
+
+			<!-- 右侧图片 -->
+			<div class="md:w-1/2">
+				<img src="assets/chest.png" alt="开箱玩法展示" class="rounded-xl shadow-lg w-full" loading="lazy">
 			</div>
 		</div>
-	</section>
-
+	</div>
+</section>
 	<!-- 特色亮点区 -->
-	<section id="features" class="py-16 bg-gradient-to-b from-gray-900 to-gray-800 text-white stars">
-		<div class="container mx-auto px-4">
-			<h2 class="text-3xl font-bold text-center mb-12">特色亮点</h2>
+<section id="features" class="py-16 bg-gradient-to-b from-gray-900 to-gray-800 text-white stars">
+	<div class="container mx-auto px-4">
+		<h2 class="text-3xl font-bold text-center mb-12">
+			<span lang="zh">特色亮点</span>
+			<span lang="en">Key Highlights</span>
+		</h2>
 			<!--
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 				<div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 shadow-lg border border-gray-700">
@@ -413,211 +582,295 @@
 				</div>
 			</div>
 			-->
-			
-			<!-- App UI 展示 -->
-			<div class="flex flex-col md:flex-row gap-8 items-center">
-				<div class="md:w-1/2">
-					<img src="assets/uib.png" alt="App UI 展示" class="rounded-xl shadow-lg mx-auto" loading="lazy">
-				</div>
-				<div class="md:w-1/2 space-y-6">
-					<!-- 倒计时宝箱 -->
-					<div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 shadow-lg border border-gray-700">
-						<h3 class="text-xl font-bold mb-4">倒计时宝箱</h3>
-						<div class="flex justify-between items-center mb-4">
-							<div class="flex space-x-2">
-								<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">
-									02
-								</div>
-								<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">
-									45
-								</div>
-								<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">
-									33
-								</div>
-							</div>
-							<button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors">
-								立即开启
-							</button>
+		<!-- App UI 展示 -->
+		<div class="flex flex-col md:flex-row gap-8 items-center">
+			<div class="md:w-1/2">
+				<img src="assets/uib.png" alt="App UI 展示" class="rounded-xl shadow-lg mx-auto" loading="lazy">
+			</div>
+
+			<div class="md:w-1/2 space-y-6">
+
+				<!-- 倒计时宝箱 -->
+				<div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 shadow-lg border border-gray-700">
+					<h3 class="text-xl font-bold mb-4">
+						<span lang="zh">倒计时宝箱</span>
+						<span lang="en">Countdown Chest</span>
+					</h3>
+					<div class="flex justify-between items-center mb-4">
+						<div class="flex space-x-2">
+							<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">02</div>
+							<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">45</div>
+							<div class="bg-orange-500 text-white px-3 py-2 rounded-lg font-bold">33</div>
 						</div>
-						<p class="text-sm text-gray-300">倒计时结束后，您将获得一个免费宝箱。邀请好友可加速倒计时！</p>
+						<button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors">
+							<span lang="zh">立即开启</span>
+							<span lang="en">Open Now</span>
+						</button>
 					</div>
-					
-					<!-- 推广助力 -->
-					<div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 shadow-lg border border-gray-700">
-						<h3 class="text-xl font-bold mb-4">推广助力</h3>
-						<div class="grid grid-cols-3 gap-4 mb-4">
-							<button class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
-								点击助力
-							</button>
-							<button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
-								分享助力
-							</button>
-							<button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
-								推广助力
-							</button>
-						</div>
-						<p class="text-sm text-gray-300">通过助力可以加速倒计时、获取额外 GEM 奖励，提升您的游戏体验。</p>
-					</div>
+					<p class="text-sm text-gray-300">
+						<span lang="zh">倒计时结束后，您将获得一个免费宝箱。邀请好友可加速倒计时！</span>
+						<span lang="en">Once the timer ends, you'll receive a free chest. Invite friends to speed up the countdown!</span>
+					</p>
 				</div>
+
+				<!-- 推广助力 -->
+				<div class="bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl p-6 shadow-lg border border-gray-700">
+					<h3 class="text-xl font-bold mb-4">
+						<span lang="zh">推广助力</span>
+						<span lang="en">Referral Boost</span>
+					</h3>
+					<div class="grid grid-cols-3 gap-4 mb-4">
+						<button class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
+							<span lang="zh">点击助力</span>
+							<span lang="en">Click Boost</span>
+						</button>
+						<button class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
+							<span lang="zh">分享助力</span>
+							<span lang="en">Share Boost</span>
+						</button>
+						<button class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors text-sm">
+							<span lang="zh">推广助力</span>
+							<span lang="en">Invite Boost</span>
+						</button>
+					</div>
+					<p class="text-sm text-gray-300">
+						<span lang="zh">通过助力可以加速倒计时、获取额外 GEM 奖励，提升您的游戏体验。</span>
+						<span lang="en">Boosts can reduce countdown time, earn extra GEMs, and enhance your gameplay experience.</span>
+					</p>
+				</div>
+
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
 	<!-- 快速开始区 -->
-	<section id="download" class="py-16 bg-white">
-		<div class="container mx-auto px-4">
-			<h2 class="text-3xl font-bold text-center mb-12">下载 & 快速上手</h2>
-			
-			<div class="flex flex-col md:flex-row gap-8 items-center mb-12">
-				<div class="md:w-1/2">
-					<div class="flex flex-col space-y-4">
-						<a href="#" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow flex items-center justify-center">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-							</svg>
-							Line MiniApp版
-						</a>
-						<a href="#" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow flex items-center justify-center">
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-							</svg>
-							Web 版本
-						</a>
-					</div>
+<section id="download" class="py-16 bg-white">
+	<div class="container mx-auto px-4">
+		<h2 class="text-3xl font-bold text-center mb-12">
+			<span lang="zh">下载 & 快速上手</span>
+			<span lang="en">Download & Get Started</span>
+		</h2>
+		<div class="flex flex-col md:flex-row gap-8 items-center mb-12">
+			<!-- 左侧按钮 -->
+			<div class="md:w-1/2">
+				<div class="flex flex-col space-y-4">
+					<a href="#" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow flex items-center justify-center">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+						</svg>
+						<span lang="zh">Line MiniApp版</span>
+						<span lang="en">Line MiniApp</span>
+					</a>
+					<a href="#" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow flex items-center justify-center">
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+						</svg>
+						<span lang="zh">Web 版本</span>
+						<span lang="en">Web Version</span>
+					</a>
 				</div>
-				<div class="md:w-1/2">
-					<h3 class="text-xl font-bold mb-4">新手指南</h3>
-					<div class="space-y-4">
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">
-								1
-							</div>
-							<div>
-								<h4 class="font-bold mb-1">>1. 选择平台进入游戏</h4>
-								<p class="text-gray-700">点击按钮，选择 <strong>Line MiniApp 版</strong> 或 <strong>Web 版本</strong> 启动 Moofun。</p>
-							</div>
+			</div>
+			<!-- 右侧新手指引 -->
+			<div class="md:w-1/2">
+				<h3 class="text-xl font-bold mb-4">
+					<span lang="zh">新手指南</span>
+					<span lang="en">Beginner's Guide</span>
+				</h3>
+				<div class="space-y-4">
+					<!-- 步骤 1 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">1</div>
+						<div>
+							<h4 class="font-bold mb-1">
+								<span lang="zh">1. 选择平台进入游戏</span>
+								<span lang="en">1. Choose your platform</span>
+							</h4>
+							<p class="text-gray-700">
+								<span lang="zh">点击按钮，选择 <strong>Line MiniApp 版</strong> 或 <strong>Web 版本</strong> 启动 Moofun。</span>
+								<span lang="en">Click a button to launch Moofun via Line MiniApp or Web version.</span>
+							</p>
 						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">
-								2
-							</div>
-							<div>
-								<h4 class="font-bold mb-1">2. 登录/注册账号</h4>
-								<p class="text-gray-700">使用您的邮箱或社交账号登录，新用户可获得额外奖励。</p>
-							</div>
+					</div>
+					<!-- 步骤 2 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">2</div>
+						<div>
+							<h4 class="font-bold mb-1">
+								<span lang="zh">2. 登录/注册账号</span>
+								<span lang="en">2. Log in or sign up</span>
+							</h4>
+							<p class="text-gray-700">
+								<span lang="zh">使用您的邮箱或社交账号登录，新用户可获得额外奖励。</span>
+								<span lang="en">Use email or social login. New players get extra rewards.</span>
+							</p>
 						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">
-								3
-							</div>
-							<div>
-								<h4 class="font-bold mb-1">参与挂机、开箱、任务等玩法</h4>
-								<p class="text-gray-700">开始您的奶牛农场之旅，体验多样化的游戏玩法。</p>
-							</div>
+					</div>
+					<!-- 步骤 3 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">3</div>
+						<div>
+							<h4 class="font-bold mb-1">
+								<span lang="zh">3. 参与挂机、开箱、任务等玩法</span>
+								<span lang="en">3. Explore idle, chest & quests</span>
+							</h4>
+							<p class="text-gray-700">
+								<span lang="zh">开始您的奶牛农场之旅，体验多样化的游戏玩法。</span>
+								<span lang="en">Start your cow farm adventure with rich gameplay variety.</span>
+							</p>
 						</div>
-						<div class="flex items-start">
-							<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">
-								4
-							</div>
-							<div>
-								<h4 class="font-bold mb-1">升级牧场、获取奖励</h4>
-								<p class="text-gray-700">使用获得的资源升级您的牧场，解锁更多奖励和玩法。</p>
-							</div>
+					</div>
+					<!-- 步骤 4 -->
+					<div class="flex items-start">
+						<div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 shrink-0">4</div>
+						<div>
+							<h4 class="font-bold mb-1">
+								<span lang="zh">4. 升级牧场、获取奖励</span>
+								<span lang="en">4. Upgrade & earn</span>
+							</h4>
+							<p class="text-gray-700">
+								<span lang="zh">使用获得的资源升级您的牧场，解锁更多奖励和玩法。</span>
+								<span lang="en">Use resources to upgrade your farm and unlock new features.</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-
+	</div>
+</section>
 	<!-- FAQ 常见问题 -->
-	<section id="faq" class="py-16 bg-gray-100">
-		<div class="container mx-auto px-4">
-			<h2 class="text-3xl font-bold text-center mb-12">常见问题</h2>
-			
-			<div class="max-w-3xl mx-auto space-y-4">
-				<details class="bg-white rounded-xl shadow-md overflow-hidden">
-					<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
-						<span>如何领取离线收益？</span>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-						</svg>
-					</summary>
-					<div class="px-6 py-4 border-t border-gray-200">
-						<p class="text-gray-700">
-							离线收益会自动累积。在第一版游戏中，离线收益分为两部分：
-						</p><ol>
-        <li><strong>倒计时宝箱：</strong>每24小时刷新一次，需等待倒计时结束后开启，内含离线奖励。</li>
-        <li><strong>农场GEM收益：</strong>在您离线期间，系统会根据农场产出自动累积GEM奖励。</li>
-      </ol>
-      <p>您可以在主页点击“收益中心”查看并领取当前可得的离线收益。</p>
+<section id="faq" class="py-16 bg-gray-100">
+	<div class="container mx-auto px-4">
+		<h2 class="text-3xl font-bold text-center mb-12">
+			<span lang="zh">常见问题</span>
+			<span lang="en">Frequently Asked Questions</span>
+		</h2>
+		<div class="max-w-3xl mx-auto space-y-4">
+			<!-- Q1 -->
+			<details class="bg-white rounded-xl shadow-md overflow-hidden">
+				<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
+					<span>
+						<span lang="zh">如何领取离线收益？</span>
+						<span lang="en">How do I claim offline rewards?</span>
+					</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+					</svg>
+				</summary>
+				<div class="px-6 py-4 border-t border-gray-200 text-gray-700">
+					<div lang="zh">
+						<p>离线收益会自动累积。在第一版游戏中，离线收益分为两部分：</p>
+						<ol class="list-decimal list-inside my-2">
+							<li><strong>倒计时宝箱：</strong>每24小时刷新一次，需等待倒计时结束后开启，内含离线奖励。</li>
+							<li><strong>农场GEM收益：</strong>在您离线期间，系统会根据农场产出自动累积GEM奖励。</li>
+						</ol>
+						<p>您可以在主页点击“收益中心”查看并领取当前可得的离线收益。</p>
 					</div>
-				</details>
-				
-				<details class="bg-white rounded-xl shadow-md overflow-hidden">
-					<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
-						<span>宝箱奖励如何获取？</span>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-						</svg>
-					</summary>
-					<div class="px-6 py-4 border-t border-gray-200">
-						<p class="text-gray-700">
-							宝箱奖励可通过多种方式获取：完成每日任务、参与社区活动、邀请好友、倒计时宝箱等。不同类型的宝箱包含不同稀有度的奖励，Jackpot宝箱有机会获得游戏中最稀有的物品。
-						</p>
+					<div lang="en">
+						<p>Offline rewards accumulate automatically. In the first version, they consist of:</p>
+						<ol class="list-decimal list-inside my-2">
+							<li><strong>Countdown Chest:</strong> Refreshes every 24 hours. Once ready, open it for offline rewards.</li>
+							<li><strong>Farm GEM Earnings:</strong> While offline, your farm continues generating GEMs automatically.</li>
+						</ol>
+						<p>You can view and claim these rewards in the “Earnings Center” on the homepage.</p>
 					</div>
-				</details>
-				
-				<details class="bg-white rounded-xl shadow-md overflow-hidden">
-					<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
-						<span>推广奖励规则？</span>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-						</svg>
-					</summary>
-					<div class="px-6 py-4 border-t border-gray-200">
-						<p class="text-gray-700">成功邀请一位新用户后，您将获得一次宝箱奖励。</p>
-   						<p class="text-gray-700">此外，您的下线好友的 <strong>倒计时宝箱将自动获得加速</strong>，更快开启宝箱。</p>
+				</div>
+			</details>
+			<!-- Q2 -->
+			<details class="bg-white rounded-xl shadow-md overflow-hidden">
+				<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
+					<span>
+						<span lang="zh">宝箱奖励如何获取？</span>
+						<span lang="en">How do I get treasure chests?</span>
+					</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+					</svg>
+				</summary>
+				<div class="px-6 py-4 border-t border-gray-200 text-gray-700">
+					<div lang="zh">
+						宝箱奖励可通过多种方式获取：完成每日任务、参与社区活动、邀请好友、倒计时宝箱等。不同类型的宝箱包含不同稀有度的奖励，Jackpot宝箱有机会获得游戏中最稀有的物品。
 					</div>
-				</details>
-			</div>
+					<div lang="en">
+						You can get treasure chests through daily tasks, community events, referrals, and countdown timers. Different chests offer varying rarities, and Jackpot chests contain the rarest items in the game.
+					</div>
+				</div>
+			</details>
+			<!-- Q3 -->
+			<details class="bg-white rounded-xl shadow-md overflow-hidden">
+				<summary class="px-6 py-4 cursor-pointer font-bold flex items-center justify-between">
+					<span>
+						<span lang="zh">推广奖励规则？</span>
+						<span lang="en">How does the referral reward work?</span>
+					</span>
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+					</svg>
+				</summary>
+				<div class="px-6 py-4 border-t border-gray-200 text-gray-700">
+					<div lang="zh">
+						<p>成功邀请一位新用户后，您将获得一次宝箱奖励。</p>
+						<p>此外，您的下线好友的 <strong>倒计时宝箱将自动获得加速</strong>，更快开启宝箱。</p>
+					</div>
+					<div lang="en">
+						<p>Successfully invite a new player to receive a free chest reward.</p>
+						<p>Also, your downline’s <strong>countdown chests will open faster</strong> thanks to your boost.</p>
+					</div>
+				</div>
+			</details>
 		</div>
-	</section>
+	</div>
+</section>
 
 	<!-- Footer 页脚 -->
-	<footer class="py-12 bg-gray-900 text-white">
-		<div class="container mx-auto px-4 text-center">
-			<div class="flex justify-center items-center mb-6">
-				<img src="assets/logo.png" alt="Moofun Logo" class="flogo" loading="lazy">
-			</div>
-			
-			<div class="flex justify-center space-x-6 mb-6">
-				<a href="#" class="hover:text-orange-500 transition-colors">隐私政策</a>
-				<a href="#" class="hover:text-orange-500 transition-colors">服务条款</a>
-				<a href="#" class="hover:text-orange-500 transition-colors">联系我们</a>
-			</div>
-			
-			<div class="flex justify-center space-x-4 mb-6">
-				<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-					</svg>
-				</a>
-				<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-					</svg>
-				</a>
-				<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-					</svg>
-				</a>
-			</div>
-			
-			<p class="text-gray-400">© 2025 Moofun. All rights reserved.</p>
+<footer class="py-12 bg-gray-900 text-white">
+	<div class="container mx-auto px-4 text-center">
+		<!-- Logo -->
+		<div class="flex justify-center items-center mb-6">
+			<img src="assets/logo.png" alt="Moofun Logo" class="flogo" loading="lazy">
 		</div>
-	</footer>
+		<!-- 链接导航 -->
+		<div class="flex justify-center space-x-6 mb-6">
+			<a href="#" class="hover:text-orange-500 transition-colors">
+				<span lang="zh">隐私政策</span>
+				<span lang="en">Privacy Policy</span>
+			</a>
+			<a href="#" class="hover:text-orange-500 transition-colors">
+				<span lang="zh">服务条款</span>
+				<span lang="en">Terms of Service</span>
+			</a>
+			<a href="#" class="hover:text-orange-500 transition-colors">
+				<span lang="zh">联系我们</span>
+				<span lang="en">Contact Us</span>
+			</a>
+		</div>
+		<!-- 社交图标 -->
+		<div class="flex justify-center space-x-4 mb-6">
+			<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+				</svg>
+			</a>
+			<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+				</svg>
+			</a>
+			<a href="#" class="bg-gray-800 hover:bg-gray-700 p-2 rounded-full transition-colors">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+				</svg>
+			</a>
+		</div>
+		<!-- 版权信息 -->
+		<p class="text-gray-400">
+			<span lang="zh">© 2025 Moofun. 版权所有。</span>
+			<span lang="en">© 2025 Moofun. All rights reserved.</span>
+		</p>
+
+	</div>
+</footer>
 
 	<script>
 		// 移动端菜单切换
